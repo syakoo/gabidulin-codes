@@ -2,6 +2,8 @@ from typing import List
 
 from galois_field import GFpn, ElementInGFpn
 
+from src import encode
+
 
 class GabidulinCodes:
     def __init__(self, F: GFpn, gs: List[ElementInGFpn], k: int):
@@ -21,6 +23,10 @@ class GabidulinCodes:
                 G_row.append(frob_pow)
 
             self.__G.append(G_row)
+
+    def encode(self, x: List[ElementInGFpn]) -> List[ElementInGFpn]:
+        codeword = encode.encode(x, self.__G)
+        return codeword
 
     @property
     def G(self) -> List[List[ElementInGFpn]]:
