@@ -43,6 +43,17 @@ class MatGFpn:
 
         return MatGFpn(applyed_values)
 
+    @staticmethod
+    def from_vect_over_GFpn(vector: List[ElementInGFpn]) -> MatGFpn:
+        F = GFp(vector[0].p)
+        result = []
+        max_len = len(vector[0].mod_poly.coeffs) - 1
+        for vi in vector:
+            result.append([F.elm(0)]*(max_len - len(vi.coeffs)) +
+                          list(map(F.elm, vi.coeffs)))
+
+        return MatGFpn(result)
+
 
 if __name__ == "__main__":
     GF = GFp(5)
@@ -51,3 +62,10 @@ if __name__ == "__main__":
     Mat2 = MatGFpn.from_int_values([[1, 3, 5], [2, 4, 6]], GF)
     print(Mat1)
     print(Mat2)
+
+    GF2 = GFpn(5, [1, 0, 0, 0, 2])
+    values = [[1, 2, 3], [4, 5, 6]]
+    Mat3 = MatGFpn.from_int_values(values, GF2)
+    Mat4 = MatGFpn.from_vect_over_GFpn(list(map(GF2.elm, values)))
+    print(Mat3)
+    print(Mat4)
