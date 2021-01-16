@@ -34,6 +34,14 @@ class MatGFpn:
                           for i in range(self.n)] for j in range(self.m)]
         return MatGFpn(result_values)
 
+    def __sub__(self, other: MatGFpn) -> MatGFpn:
+        if not (self.m == other.m and self.n == other.n):
+            raise ValueError("Two matrices have different sizes.")
+
+        result_values = [[self[j][i] - other[j][i]
+                          for i in range(self.n)] for j in range(self.m)]
+        return MatGFpn(result_values)
+
     def __str__(self) -> str:
         str_rows = map(lambda row: " ".join(map(str, row)), self.__values)
         return "[ " + "\n  ".join(str_rows) + " ]"
@@ -71,6 +79,7 @@ if __name__ == "__main__":
     print(Mat1)
     print(Mat2)
     print(f"add:\n{Mat1 + Mat2}")
+    print(f"sub:\n{Mat1 - Mat2}")
 
     GF2 = GFpn(5, [1, 0, 0, 0, 2])
     values = [[1, 2, 3], [4, 5, 6]]
