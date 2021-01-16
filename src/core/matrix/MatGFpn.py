@@ -42,9 +42,29 @@ class MatGFpn:
                           for i in range(self.n)] for j in range(self.m)]
         return MatGFpn(result_values)
 
+    def __mul__(self, other: MatGFpn) -> MatGFpn:
+        if not (self.n == other.m):
+            raise ValueError("Two matrices have different sizes.")
+
+        result_values = []
+        for j in range(self.m):
+            row = []
+            for i in range(other.n):
+                val = 0
+                for k in range(self.n):
+                    val = val + self[j][k]*other[k][i]
+                row.append(val)
+            result_values.append(row)
+        return MatGFpn(result_values)
+
     def __str__(self) -> str:
         str_rows = map(lambda row: " ".join(map(str, row)), self.__values)
         return "[ " + "\n  ".join(str_rows) + " ]"
+
+    def transpose(self) -> MatGFpn:
+        result_values = [[self[j][i]
+                          for j in range(self.m)] for i in range(self.n)]
+        return MatGFpn(result_values)
 
     @staticmethod
     def from_int_values(values: List[List[int]], F: Union[GFp, GFpn]) -> MatGFpn:
@@ -80,6 +100,8 @@ if __name__ == "__main__":
     print(Mat2)
     print(f"add:\n{Mat1 + Mat2}")
     print(f"sub:\n{Mat1 - Mat2}")
+    print(f"tMat2:\n{Mat2.transpose()}")
+    print(f"mul:\n{Mat1 * Mat2.transpose()}")
 
     GF2 = GFpn(5, [1, 0, 0, 0, 2])
     values = [[1, 2, 3], [4, 5, 6]]
