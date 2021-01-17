@@ -3,6 +3,8 @@ from typing import List, Union
 
 from galois_field import ElementInGFp, ElementInGFpn, GFp, GFpn
 
+import rank
+
 ElmInGF = Union[ElementInGFp, ElementInGFpn]
 
 
@@ -25,6 +27,10 @@ class MatGFpn:
     @property
     def n(self) -> int:
         return self.__n
+
+    @property
+    def rank(self) -> int:
+        return rank._seek_rank_over_Field(self.__values)
 
     def __add__(self, other: MatGFpn) -> MatGFpn:
         if not (self.m == other.m and self.n == other.n):
@@ -91,12 +97,13 @@ class MatGFpn:
         return MatGFpn(result)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     GF = GFp(5)
 
     Mat1 = MatGFpn.from_int_values([[1, 2, 3], [4, 5, 6]], GF)
     Mat2 = MatGFpn.from_int_values([[1, 3, 5], [2, 4, 6]], GF)
     print(Mat1)
+    print(Mat1.rank)
     print(Mat2)
     print(f"add:\n{Mat1 + Mat2}")
     print(f"sub:\n{Mat1 - Mat2}")
