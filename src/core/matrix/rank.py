@@ -1,7 +1,7 @@
 from .types import MatValues
 
 
-def _seek_rank_over_Field(values: MatValues) -> int:
+def seek_rank_over_Field(values: MatValues) -> int:
     """Find the rank of a matrix over GF(p).
 
     Args:

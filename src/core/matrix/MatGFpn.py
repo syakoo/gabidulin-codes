@@ -29,7 +29,7 @@ class MatGFpn:
 
     @property
     def rank(self) -> int:
-        return rank._seek_rank_over_Field(self.__values)
+        return rank.seek_rank_over_Field(self.__values)
 
     def __add__(self, other: MatGFpn) -> MatGFpn:
         if not (self.m == other.m and self.n == other.n):
