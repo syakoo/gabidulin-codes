@@ -3,7 +3,6 @@ from typing import List
 from galois_field import GFp, GFpn, ElementInGFp
 
 from GabidulinCodes import GabidulinCodes
-from src.Matrix import Matrix
 from src.core.matrix.MatGFpn import MatGFpn
 
 
