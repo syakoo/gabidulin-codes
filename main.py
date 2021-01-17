@@ -15,7 +15,7 @@ def main():
     F = GFpn(5, [1, 0, 0, 0, 2])
     gs = [F.elm([1, 2]), F.elm([1, 0, 1]), F.elm([3, 2, 0])]
     Gab = GabidulinCodes(F, gs, 3)
-    print(F, Gab.G)
+    print(F, Gab.G, sep="\n")
 
     # gs_as_mat = Matrix.from_list(gs)
     # print(gs_as_mat.rank)
@@ -53,5 +53,5 @@ def foo():
 
 
 if __name__ == "__main__":
-    # main()
-    foo()
+    main()
+    # foo()

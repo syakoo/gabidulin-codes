@@ -3,6 +3,7 @@ from typing import List
 from galois_field import GFpn, ElementInGFpn
 
 from src import encode
+from src.core.matrix import MatGFpn
 
 
 class GabidulinCodes:
@@ -13,7 +14,7 @@ class GabidulinCodes:
         self.__k = k
         self.__d = self.__n - self.__k + 1
 
-        self.__G = [gs]
+        G_values = [gs]
         for i in range(1, k):
             G_row = []
             exp_pi = F.p ** i
@@ -22,14 +23,15 @@ class GabidulinCodes:
                 frob_pow = g ** exp_pi
                 G_row.append(frob_pow)
 
-            self.__G.append(G_row)
+            G_values.append(G_row)
+        self.__G = MatGFpn(G_values)
 
     def encode(self, x: List[ElementInGFpn]) -> List[ElementInGFpn]:
         codeword = encode.encode(x, self.__G)
         return codeword
 
     @property
-    def G(self) -> List[List[ElementInGFpn]]:
+    def G(self) -> MatGFpn:
         return self.__G
 
     @property
