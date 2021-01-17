@@ -1,9 +1,4 @@
-from typing import List, Union
-
-from galois_field import ElementInGFp, ElementInGFpn
-
-
-MatValues = List[List[Union[ElementInGFp, ElementInGFpn]]]
+from .types import MatValues
 
 
 def _seek_rank_over_Field(values: MatValues) -> int:

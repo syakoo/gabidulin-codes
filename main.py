@@ -1,9 +1,10 @@
 from typing import List
 
-from galois_field import GFpn, ElementInGFp
+from galois_field import GFp, GFpn, ElementInGFp
 
 from GabidulinCodes import GabidulinCodes
 from src.Matrix import Matrix
+from src.core.matrix.MatGFpn import MatGFpn
 
 
 def print_mat_Fp(mat: List[List[ElementInGFp]]) -> None:
@@ -23,5 +24,27 @@ def main():
     print(codeword)
 
 
+def foo():
+    GF = GFp(5)
+
+    Mat1 = MatGFpn.from_int_values([[1, 2, 3], [4, 5, 6]], GF)
+    Mat2 = MatGFpn.from_int_values([[1, 3, 5], [2, 4, 6]], GF)
+    print(Mat1)
+    print(Mat1.rank)
+    print(Mat2)
+    print(f"add:\n{Mat1 + Mat2}")
+    print(f"sub:\n{Mat1 - Mat2}")
+    print(f"tMat2:\n{Mat2.transpose()}")
+    print(f"mul:\n{Mat1 * Mat2.transpose()}")
+
+    GF2 = GFpn(5, [1, 0, 0, 0, 2])
+    values = [[1, 2, 3], [4, 5, 6]]
+    Mat3 = MatGFpn.from_int_values(values, GF2)
+    Mat4 = MatGFpn.from_vect_over_GFpn(list(map(GF2.elm, values)))
+    print(Mat3)
+    print(Mat4)
+
+
 if __name__ == "__main__":
-    main()
+    # main()
+    foo()

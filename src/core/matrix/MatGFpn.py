@@ -1,15 +1,14 @@
 from __future__ import annotations
 from typing import List, Union
 
-from galois_field import ElementInGFp, ElementInGFpn, GFp, GFpn
+from galois_field import ElementInGFpn, GFp, GFpn
 
-import rank
-
-ElmInGF = Union[ElementInGFp, ElementInGFpn]
+from . import rank
+from .types import ElmInGF, MatValues
 
 
 class MatGFpn:
-    def __init__(self, mat: List[List[ElmInGF]]):
+    def __init__(self, mat: MatValues):
         self.__values = mat
         self.__m = len(mat)
         self.__n = len(mat[0])
@@ -95,24 +94,3 @@ class MatGFpn:
                           list(map(F.elm, vi.coeffs)))
 
         return MatGFpn(result)
-
-
-if __name__ == '__main__':
-    GF = GFp(5)
-
-    Mat1 = MatGFpn.from_int_values([[1, 2, 3], [4, 5, 6]], GF)
-    Mat2 = MatGFpn.from_int_values([[1, 3, 5], [2, 4, 6]], GF)
-    print(Mat1)
-    print(Mat1.rank)
-    print(Mat2)
-    print(f"add:\n{Mat1 + Mat2}")
-    print(f"sub:\n{Mat1 - Mat2}")
-    print(f"tMat2:\n{Mat2.transpose()}")
-    print(f"mul:\n{Mat1 * Mat2.transpose()}")
-
-    GF2 = GFpn(5, [1, 0, 0, 0, 2])
-    values = [[1, 2, 3], [4, 5, 6]]
-    Mat3 = MatGFpn.from_int_values(values, GF2)
-    Mat4 = MatGFpn.from_vect_over_GFpn(list(map(GF2.elm, values)))
-    print(Mat3)
-    print(Mat4)
