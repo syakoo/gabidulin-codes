@@ -43,6 +43,13 @@ def foo():
     Mat4 = MatGFpn.from_vect_over_GFpn(list(map(GF2.elm, values)))
     print(Mat3)
     print(Mat4)
+    print("="*20)
+    print("inverse:")
+    Mat = MatGFpn.from_int_values(([1, 2, 3], [2, 4, 3], [7, 8, 9]), GF)
+    inv_Mat = Mat.inverse()
+    print(Mat)
+    print(inv_Mat)
+    print(Mat*inv_Mat)
 
 
 if __name__ == "__main__":

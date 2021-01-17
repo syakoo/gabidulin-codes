@@ -1,9 +1,10 @@
 from __future__ import annotations
+import copy
 from typing import List, Union
 
 from galois_field import ElementInGFpn, GFp, GFpn
 
-from . import rank
+from . import rank, inverse
 from .types import ElmInGF, MatValues
 
 
@@ -29,7 +30,11 @@ class MatGFpn:
 
     @property
     def rank(self) -> int:
-        return rank.seek_rank_over_Field(self.__values)
+        return rank.seek_rank_over_Field(self.values)
+
+    @property
+    def values(self) -> MatValues:
+        return copy.deepcopy(self.__values)
 
     def __add__(self, other: MatGFpn) -> MatGFpn:
         if not (self.m == other.m and self.n == other.n):
@@ -69,6 +74,13 @@ class MatGFpn:
     def transpose(self) -> MatGFpn:
         result_values = [[self[j][i]
                           for j in range(self.m)] for i in range(self.n)]
+        return MatGFpn(result_values)
+
+    def inverse(self) -> MatGFpn:
+        if self.m != self.n:
+            raise ValueError("m and n must be the same value.")
+
+        result_values = inverse.seek_inverse(self.values)
         return MatGFpn(result_values)
 
     @staticmethod
