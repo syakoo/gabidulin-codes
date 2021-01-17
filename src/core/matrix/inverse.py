@@ -27,9 +27,10 @@ def seek_inverse(values: MatValues) -> MatValues:
             if mi == i:
                 continue
             val = values[mi][i]
-            for ni in range(i, n)[::-1]:
-                values[mi][ni] = values[mi][ni] - values[i][ni]*val
             for ni in range(n):
+                if ni >= i:
+                    values[mi][ni] = values[mi][ni] - values[i][ni]*val
+
                 inv_values[mi][ni] = inv_values[mi][ni] - inv_values[i][ni]*val
 
     return inv_values
